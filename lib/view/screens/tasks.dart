@@ -7,8 +7,6 @@ import '../widgets/task_item.dart';
 class Tasks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-   // final MyController controller = Get.find();
-   // final List<Map> tasks = controller.tasks2;
 
     return GetBuilder<MyController>(
       builder: (_) => ListView.separated(
@@ -16,7 +14,7 @@ class Tasks extends StatelessWidget {
           task: _.tasks[index],
         ),
         separatorBuilder: (BuildContext context, int index) => Container(
-          height: 1,
+          height: 1.5,
         ),
         itemCount: _.tasks.length,
       ),
