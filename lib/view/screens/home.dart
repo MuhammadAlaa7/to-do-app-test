@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/controller/controller.dart';
-import 'package:flutter_application_1/database/db.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -12,6 +11,7 @@ class HomePage extends StatelessWidget {
   HomePage({super.key});
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   final GlobalKey<FormState> formKey = GlobalKey();
+
   final MyController controller = Get.find();
 
   @override
@@ -40,24 +40,21 @@ class HomePage extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           child: Icon(
             controller.fabIcon,
-            // controller.isBottomSheetOpened ?   Icons.add :controller.fabIcon,
+           
           ),
           onPressed: () {
             //showModalBottomSheet(context: context, builder: (_) => Container());
            
             if(controller.isBottomSheetOpened)
             {
-              Navigator.pop(context);
+             
               //After closing it insert and get the tasks.
-               DBHelper.insertDB(
-              title: controller.titleController.text , 
-              date: controller.dateController.text, 
-              time: controller.timeController.text, 
-            ).then((_) => controller.updateDB() );
-          // DBHelper.deleteDB();
-            
+              controller.putDataIntoDataBase().then((_) {
+                 Navigator.pop(context);
             controller.isBottomSheetOpened = !controller.isBottomSheetOpened;
             controller.changeFabIcon();
+              });
+            
            
             }
             else
